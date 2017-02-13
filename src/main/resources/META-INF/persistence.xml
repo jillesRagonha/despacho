@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="despacho" transaction-type="RESOURCE_LOCAL">
+
+        <class>br.com.agilles.despacho.Despacho</class>
+        <class>br.com.agilles.talao.Talao</class>
+        <class>br.com.agilles.guarda.Guarda</class>
+        <class>br.com.agilles.viatura.Viatura</class>
+        <class>br.com.agilles.endereco.Endereco</class>
+        <class>br.com.agilles.natureza.Natureza</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/despacho"/>
+            <property name="javax.persistence.jdbc.user" value="seguranca"/>
+            <property name="javax.persistence.jdbc.password" value="seguranca15"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create-or-extend-tables"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="template.xhtml">
+
+    <ui:define name="breadcumb-title">
+        <h5 class="breadcrumbs-title">Abertura de Talão</h5>
+
+    </ui:define>
+    <ui:define name="breadcumb">
+        <a href="#">Novo Talão</a>
+    </ui:define>
+    <ui:define name="conteudo">
+        <p class="caption">Novo talão a ser inserido no sistema.</p>
+
+        <div class="divider"></div>
+        <h:form styleClass="col s12" id="form">
+
+            <div id="basic-form" class="section">
+                <div class="row">
+
+                    <!-- Cadastro das informações pessoais -->
+                    <div class="col s12 m6 16">
+                        <div class="card-panel">
+                            <h4 class="header">Talão</h4>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <i class="mdi-action-today prefix"></i>
+                                        <h:inputHidden  type="text"
+                                               value="#{talaoBean.talao.talao}" />
+                                        <label jsf:for="talao" >Nº Talão</label>
+                                        <p:inputText value="#{talaoBean.talao.talao}" style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #000; font-size: x-large" disabled="true" id="talao"/>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <i class="mdi-av-timer prefix"></i>
+                                        <p:inputText id="horaInicial" type="text"
+                                                     value="#{talaoBean.talao.horaInicial}" style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #000; font-size: large"/>
+                                        <label jsf:for="horaInicial">Hora Inicial</label>
+                                    </div>
+                                    <div class="input-field col s8 m6">
+                                        <i class="mdi-action-picture-in-picture prefix"></i>
+                                        <p:inputText id="natureza" style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #000; font-size: large" type="text" value="#{talaoBean.talao.natureza}" />
+                                        <label jsf:for="natureza">Natureza</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cadastro das informações de endereço -->
+
+
+                    <div class="col s12 m6 16" jsf:id="painel">
+                        <div class="card-panel">
+                            <h4 class="header">Viatura</h4>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="input-field col s6 m6">
+                                        <i class="mdi-maps-directions-car prefix"></i>
+                                        <p:inputText id="prefixo" style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #000; font-size: large"  type="text" value="#{talaoBean.talao.viatura}"/>
+                                        <label jsf:for="prefixo">Prefixo</label>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s6 m6">
+                                        <i class="mdi-notification-event-note prefix"></i>
+                                        <p:inputText id="kmInicial" type="text" value="#{talaoBean.talao.kmInicial}"  style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #000; font-size: large"/>
+                                        <label jsf:for="kmInicial">Km de Início</label>
+                                    </div>
+                                    <div class="input-field col s6 m6">
+                                        <i class="mdi-communication-business prefix"></i>
+                                        <p:inputText id="setor" type="text" style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #000; font-size: large"
+                                                     value="#{talaoBean.talao.setor}"/>
+                                        <label jsf:for="setor">Setor</label>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <button update="@form" class="btn waves-effect waves-light blue col m3 s12"
+                            style="margin-left: 10px;" jsf:action="#{talaoBean.abrirTalao}">
+                        Abrir Talão
+                        <i class="mdi-action-backup right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

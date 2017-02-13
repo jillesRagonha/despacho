@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="template.xhtml">
+
+    <ui:define name="breadcumb-title">
+        <h5 class="breadcrumbs-title">Talões em andamento</h5>
+
+    </ui:define>
+    <ui:define name="breadcumb">
+        <a href="#">Talões</a>
+    </ui:define>
+    <ui:define name="conteudo">
+        <p class="caption">Seção para consultar os talões que estão em abertos, ou "em andamento", encerre os talões nessa seção</p>
+
+        <div class="divider"></div>
+        <h:form styleClass="col s12" id="form">
+
+            <div id="basic-form" class="section">
+                <div class="row">
+                    <!-- Cadastro das informações pessoais -->
+                    <div class="col s12 m12 19">
+                        <h4 class="header">Consulta de Talões</h4>
+                        <div class="row">
+
+                            <table class="responsive-table display" jsf:id="data-table-simple" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th data-field="numero">
+                                        Nº
+                                    </th>
+                                    <th data-field="viatura">
+                                        Viatura
+                                    </th>
+                                    <th data-field="horaInicial">
+                                        Hora Inicial
+                                    </th>
+                                    <th data-field="kmInicial">
+                                        KM Inicial
+                                    </th>
+                                    <th data-field="natureza">
+                                        Natureza
+                                    </th>
+                                    <th data-field="acoes">
+                                        Ações
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <ui:repeat value="#{talaoBean.taloesEmAberto}" var="talao">
+                                    <tr>
+                                        <td>#{talao.talao}</td>
+                                        <td>#{talao.viatura}</td>
+                                        <td>#{talao.horaInicial}</td>
+                                        <td>#{talao.kmInicial}</td>
+                                        <td>#{talao.natureza}</td>
+
+                                        <td>
+                                            <p:commandLink process="@this" styleClass="modal-trigger"
+                                                           update=":form:formConsulta"
+                                                           onclick="href='#encerramentoDeTalao'">
+                                                <span class="mdi-content-create"
+                                                      style="color:deepskyblue"></span>
+                                                <f:setPropertyActionListener value="#{talao}"
+                                                                             target="#{talaoBean.talaoAbertoSelecionado}"/>
+
+                                            </p:commandLink>
+                                            <p:commandLink><span
+                                                    class="mdi-action-search"
+                                                    style="color:black; margin-left: 20px"></span>
+
+
+                                            </p:commandLink>
+                                            <p:commandLink>
+                                                <span class="mdi-action-delete"
+                                                      style="color:red; margin-left: 20px">
+
+                                                </span>
+
+                                            </p:commandLink>
+                                        </td>
+                                    </tr>
+
+
+                                </ui:repeat>
+
+                                </tbody>
+
+
+                            </table>
+                            <div id="encerramentoDeTalao" class="modal modal-fixed-footer white-text">
+                                <h:panelGroup id="formConsulta">
+                                    <div class="modal-content  indigo white-text">
+                                        <h:inputHidden value="#{talaoBean.talaoAbertoSelecionado.talao}"/>
+                                        <h:inputHidden value="#{talaoBean.talaoAbertoSelecionado.viatura}"/>
+                                        <h:inputHidden value="#{talaoBean.talaoAbertoSelecionado.natureza}"/>
+                                        <h:inputHidden value="#{talaoBean.talaoAbertoSelecionado.kmInicial}"/>
+                                        <h:inputHidden value="#{talaoBean.talaoAbertoSelecionado.horaInicial}"/>
+                                        <h:inputHidden value="#{talaoBean.talaoAbertoSelecionado.setor}"/>
+
+
+                                        <h4 class="header center-align" style="font-weight: bold; font-size: large;"><i
+                                                class="mdi-action-today prefix"></i>
+                                            <strong>Talão: #{talaoBean.talaoAbertoSelecionado.talao}</strong></h4>
+                                        <div class="row">
+
+                                            <p><i class="mdi-maps-directions-car prefix"/>
+                                                <strong class="font-weight: bold; font-size: large;"> Viatura - </strong> #{talaoBean.talaoAbertoSelecionado.viatura}
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <p>
+                                                <i class="mdi-action-picture-in-picture prefix"></i>
+                                                <strong>Natureza - </strong> #{talaoBean.talaoAbertoSelecionado.natureza}
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <p>
+                                                <i class="mdi-av-timer prefix"></i> <strong
+                                                    class="font-weight: bold; font-size: large;"> Hora de Abertura -</strong> #{talaoBean.talaoAbertoSelecionado.horaInicial}
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <p><i class="mdi-notification-event-note prefix"></i>
+                                                <strong> KM Inicial </strong> #{talaoBean.talaoAbertoSelecionado.kmInicial}
+                                            </p>
+                                        </div>
+                                        <br/>
+                                        <div class="divider"/>
+
+                                        <br/>
+                                        <div class="row">
+                                            <div class="input-field col s3 m3">
+                                                <i class="mdi-av-timer prefix"></i>
+                                                <p:inputText id="horaInicial" type="text" styleClass="active"
+                                                             value="#{talaoBean.talaoAbertoSelecionado.horaFinal}" placeholder="Hora Final"
+                                                             style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #FFF; font-size: large"/>
+                                            </div>
+
+                                            <div class="input-field col s3 m3">
+                                                <i class="mdi-notification-event-note prefix"></i>
+                                                <p:inputText id="kmFinal" type="text"
+                                                             value="#{talaoBean.talaoAbertoSelecionado.kmFinal}"
+                                                             style="text-align: center; font-style: inherit; align-content: center; font-weight: bold; color: #FFF; font-size: large"/>
+                                                <label jsf:for="kmFinal" style="color: #FFF"> KM Final</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <p>
+                                                <i class="mdi-notification-event-note prefix"></i>
+                                                <strong> Resumo / Detalhamento </strong>
+                                                <p:inputTextarea value="#{talaoBean.talaoAbertoSelecionado.resumo}"/>
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                </h:panelGroup>
+                                <div class="modal-footer green lighten-4">
+                                    <a href="#"
+                                       class="waves-effect waves-red btn-flat modal-action modal-close">Cancelar</a>
+                                    <button update="@form"
+                                            class="btn waves-effect waves-light blue col m3 s12 modal-action modal-close"
+                                            style="margin-left: 10px;" jsf:action="#{talaoBean.encerrarTalao}">
+                                        Encerrar Talão
+                                        <i class="mdi-action-backup right"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>
+</html>
